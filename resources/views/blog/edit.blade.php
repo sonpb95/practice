@@ -1,11 +1,16 @@
 @extends('layouts.master')
 @section('content')
-<form class="form-horizontal" method="POST" action="{{route('Blog.update')}}" role="form" enctype="multipart/form-data">
+<form class="form-horizontal" method="POST" action="{{route('blog.update')}}" role="form" enctype="multipart/form-data">
     {{ csrf_field() }}
     <H2>Sửa Blog </H2>
         <div class="form-group"><label class="col-sm-2 control-label">Tiêu Đề</label>
             <input type="hidden" id="blogId" name="id" value="{{$results->id}}">
-            <div class="col-sm-5"><input type="text" name="title" class="form-control" value="{{$results->title}}"></div>
+            <div class="col-sm-4"><input type="text" name="title" class="form-control" value="{{$results->title}}">
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group"><label class="col-sm-2 control-label">Tuổi</label>
+                <input class="form-control" type="number" maxlength="3" id="age" name="age" value="{{$results->age_limit}}">
+            </div>
         </div>
         <div class="ibox float-e-margins">
                 <div class="ibox-title">

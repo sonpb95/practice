@@ -9,7 +9,7 @@ interface BlogServiceInterface
      * @param $content
      * @return mixed
      */
-    public function createBlog($title, $content);
+    public function createBlog($title, $age, $content);
 
     /**
      * @return mixed

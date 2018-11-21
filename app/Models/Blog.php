@@ -16,7 +16,11 @@ class Blog extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'user_id', 'title', 'content',
+        'id',
+        'user_id',
+        'title',
+        'age_limit',
+        'content',
     ];
 
     public function user()

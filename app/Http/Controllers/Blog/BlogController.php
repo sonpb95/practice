@@ -45,11 +45,12 @@ class BlogController extends Controller
         if (Gate::allows('create')) {
             $title = $request->title;
             $content = $request->content;
-            $this->blogService->createBlog($title, $content);
+            $age = $request->age;
+            $this->blogService->createBlog($title, $age, $content);
 
-            return redirect()->route('Blog.home');
+            return redirect()->route('blog.home');
         } else {
-            return redirect()->route('Blog.home');
+            return redirect()->route('blog.home');
         }
     }
 
@@ -69,13 +70,12 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        if (Auth::user()->can('edit', $blog)) {
+        try {
             $results = $this->blogService->renderEdit($blog->id);
-
-            return view('blog.edit', compact('results'));
-        } else {
-            echo 'Không được phép';
-        }
+        } catch (\Exception $e) {
+            echo 'có exception nè';
+    }
+        return view('blog.edit', compact('results'));
     }
 
     /**
@@ -86,15 +86,17 @@ class BlogController extends Controller
     {
         $id = $request->id;
         $title = $request->title;
+        $age = $request->age;
         $content = $request->content;
         $blog = [
             'id' => $id,
             'title' => $title,
+            'age_limit' => $age,
             'content' => $content,
         ];
         $results = $this->blogService->updateBlog($blog, $id);
 
-        return redirect()->route('Blog.home');
+        return redirect()->route('blog.home');
     }
 
     /**
@@ -104,6 +106,19 @@ class BlogController extends Controller
     public function delete(Blog $blog)
     {
         $results = $this->blogService->deleteBlog($blog->id);
-        return redirect()->route('Blog.home');
+
+        return redirect()->route('blog.home');
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function search(Request $request)
+    {
+        $results = $this->blogService->search($request->title, $request->age, $request->content, $request->author,
+            $request->gender);
+
+        return view('blog.home', compact('results'));
     }
 }

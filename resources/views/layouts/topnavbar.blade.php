@@ -8,12 +8,12 @@
                 <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                     <i class="fa fa-reorder"></i>
                 </button>
-                <a href="{{route('Blog.home')}}" class="navbar-brand">Inspinia</a>
+                <a href="{{route('blog.home')}}" class="navbar-brand">Inspinia</a>
             </div>
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a aria-expanded="false" role="button" href="create"> Tạo Bài Viết</a>
+                        <a aria-expanded="false" role="button" href="{{ route('blog.create') }}"> Tạo Bài Viết</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-top-links navbar-right">

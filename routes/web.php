@@ -19,40 +19,20 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('blog/home', [
-    'uses' => 'Blog\BlogController@home',
-    'as' => 'Blog.home',
-]);
+Route::prefix('blog')->group(function () {
 
-Route::get('blog/create', [
-    'uses' => 'Blog\BlogController@create',
-    'as' => 'Blog.create',
-]);
+Route::get('home', 'Blog\BlogController@home')->name('blog.home');
 
-Route::get('blog/edit/{blog}', [
-    'uses' => 'Blog\BlogController@edit',
-    'as' => 'Blog.edit',
-]);
+Route::get('create', 'Blog\BlogController@create')->name('blog.create')->middleware('auth');
 
-Route::post('blog/store', [
-    'uses' => 'Blog\BlogController@store',
-    'as' => 'Blog.store',
-]);
+Route::get('edit/{blog}', 'Blog\BlogController@edit')->name('blog.edit')->middleware('blog');
 
-Route::post('blog/update', [
-    'uses' => 'Blog\BlogController@update',
-    'as' => 'Blog.update',
-]);
+Route::post('store', 'Blog\BlogController@home')->name('blog.store');
 
-Route::post('blog/delete/{blog}', [
-    'uses' => 'Blog\BlogController@delete',
-    'as' => 'Blog.delete',
-]);
+Route::post('update', 'Blog\BlogController@update')->name('blog.update');
 
-Auth::routes();
+Route::post('delete/{blog}', 'Blog\BlogController@delete')->name('blog.delete');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('search', 'Blog\BlogController@search')->name('blog.search');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+});
