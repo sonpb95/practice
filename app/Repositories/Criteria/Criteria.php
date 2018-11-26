@@ -11,5 +11,5 @@ abstract class Criteria
      * @param Repository $repository
      * @return mixed
      */
-    public abstract function apply($model, Repository $repository);
+    abstract public function apply($model, Repository $repository);
 }

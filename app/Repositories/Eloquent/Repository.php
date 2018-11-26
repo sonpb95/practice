@@ -62,7 +62,7 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
      *
      * @return mixed
      */
-    public abstract function model();
+    abstract public function model();
 
     /**
      * @param array $columns
@@ -231,8 +231,11 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
             } elseif (is_array($value)) {
                 if (count($value) === 3) {
                     list($field, $operator, $search) = $value;
-                    $model = (! $or) ? $model->where($field, $operator, $search) : $model->orWhere($field, $operator,
-                        $search);
+                    $model = (! $or) ? $model->where($field, $operator, $search) : $model->orWhere(
+                        $field,
+                        $operator,
+                        $search
+                    );
                 } elseif (count($value) === 2) {
                     list($field, $search) = $value;
                     $model = (! $or) ? $model->where($field, '=', $search) : $model->orWhere($field, '=', $search);
@@ -266,7 +269,9 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
         $this->newModel = $this->app->make($eloquentModel);
 
         if (! $this->newModel instanceof Model) {
-            throw new RepositoryException("Class {$this->newModel} must be an instance of Illuminate\\Database\\Eloquent\\Model");
+            throw new RepositoryException(
+                "Class {$this->newModel} must be an instance of Illuminate\\Database\\Eloquent\\Model"
+            );
         }
 
         return $this->model = $this->newModel;

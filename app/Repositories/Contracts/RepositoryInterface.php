@@ -2,7 +2,8 @@
 
 namespace App\Repositories\Contracts;
 
-interface RepositoryInterface {
+interface RepositoryInterface
+{
     /**
      * @param array $columns
      * @return mixed

@@ -19,11 +19,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::prefix('blog')->group(function () {
+Route::group(['prefix' => 'blog',  'middleware' => 'auth'], function() {
 
 Route::get('home', 'Blog\BlogController@home')->name('blog.home');
 
-Route::get('create', 'Blog\BlogController@create')->name('blog.create')->middleware('auth');
+Route::get('create', 'Blog\BlogController@create')->name('blog.create');
 
 Route::get('edit/{blog}', 'Blog\BlogController@edit')->name('blog.edit')->middleware('blog');
 

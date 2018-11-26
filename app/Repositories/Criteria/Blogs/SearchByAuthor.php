@@ -26,8 +26,11 @@ class SearchByAuthor extends Criteria
      */
     public function apply($model, Repository $repository)
     {
-        $model = $model->join('users', 'blogs.user_id', '=', 'users.id')->where('users.name', 'LIKE',
-                '%'.$this->value.'%');
+        $model = $model->join('users', 'blogs.user_id', '=', 'users.id')->where(
+            'users.name',
+            'LIKE',
+            '%'.$this->value.'%'
+        );
 
         return $model;
     }

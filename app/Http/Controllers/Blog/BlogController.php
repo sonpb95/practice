@@ -42,16 +42,13 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        if (Gate::allows('create')) {
-            $title = $request->title;
-            $content = $request->content;
-            $age = $request->age;
-            $this->blogService->createBlog($title, $age, $content);
+        //Gate::allows('create')
+        $title = $request->title;
+        $content = $request->content;
+        $age = $request->age;
+        $this->blogService->createBlog($title, $age, $content);
 
-            return redirect()->route('blog.home');
-        } else {
-            return redirect()->route('blog.home');
-        }
+        return redirect()->route('blog.home');
     }
 
     /**
@@ -74,7 +71,8 @@ class BlogController extends Controller
             $results = $this->blogService->renderEdit($blog->id);
         } catch (\Exception $e) {
             echo 'có exception nè';
-    }
+        }
+
         return view('blog.edit', compact('results'));
     }
 
